@@ -1,8 +1,8 @@
-import fs from "fs";
+import fs from 'fs'
 export const modelsPath = `${__dirname}/`
 import { removeExtensionFromFile } from '../middleware/utils'
 
-const loadModels =  () => {
+const loadModels = () => {
   /*
    * Load models dynamically
    */

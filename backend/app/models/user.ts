@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
-import bcrypt from "bcrypt-nodejs";
-import validator from "validator";
-import mongoosePaginate from "mongoose-paginate-v2";
+import mongoose from 'mongoose'
+import bcrypt from 'bcrypt-nodejs'
+import validator from 'validator'
+import mongoosePaginate from 'mongoose-paginate-v2'
 
 const UserSchema = new mongoose.Schema(
   {

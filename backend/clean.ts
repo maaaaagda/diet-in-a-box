@@ -1,9 +1,8 @@
 require('dotenv-safe').config()
-import  initMongo from './config/mongo'
-import  fs from 'fs'
+import initMongo from './config/mongo'
+import fs from 'fs'
 import { modelsPath } from './app/models'
 import { removeExtensionFromFile } from './app/middleware/utils'
-
 initMongo()
 
 // Loop models path and loads every file as a model except index file
@@ -11,9 +10,9 @@ const models = fs.readdirSync(modelsPath).filter(file => {
   return removeExtensionFromFile(file) !== 'index'
 })
 
-const deleteModelFromDB = model => {
-  return new Promise((resolve, reject) => {
-    model = require(`./app/models/${model}`)
+const deleteModelFromDB = modelName => {
+  return new Promise(async (resolve, reject) => {
+    const { default: model } = await import(`./app/models/${modelName}`)
     model.deleteMany({}, (err, row) => {
       if (err) {
         reject(err)

@@ -1,7 +1,7 @@
-import nodemailer from "nodemailer";
-import mg from "nodemailer-mailgun-transport";
-import i18n from "i18n";
-import User from "../models/user";
+import nodemailer from 'nodemailer'
+import mg from 'nodemailer-mailgun-transport'
+import i18n from 'i18n'
+import User from '../models/user'
 const { itemAlreadyExists } = require('./utils')
 
 /**

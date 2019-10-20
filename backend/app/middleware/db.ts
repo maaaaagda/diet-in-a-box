@@ -1,8 +1,4 @@
-const {
-  buildSuccObject,
-  buildErrObject,
-  itemNotFound
-} = require('./utils')
+const { buildSuccObject, buildErrObject, itemNotFound } = require('./utils')
 
 /**
  * Builds sorting
@@ -45,7 +41,7 @@ const listInitOptions = async req => {
   })
 }
 
-const db =  {
+const db = {
   /**
    * Checks the query string for filtering records
    * query.filter should be the text to search (string)

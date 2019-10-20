@@ -1,9 +1,9 @@
-import model from "../models/user";
-import uuid from "uuid";
+import model from '../models/user'
+import uuid from 'uuid'
 const { matchedData } = require('express-validator')
-import * as utils from "../middleware/utils";
-import db from "../middleware/db";
-import emailer from "../middleware/emailer";
+import * as utils from '../middleware/utils'
+import db from '../middleware/db'
+import emailer from '../middleware/emailer'
 
 /*********************
  * Private functions *

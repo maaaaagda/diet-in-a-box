@@ -1,14 +1,14 @@
-import * as controller from "../controllers/auth";
-import * as validate from "../controllers/auth.validate";
-import * as AuthController from "../controllers/auth";
-import express from "express";
+import * as controller from '../controllers/auth'
+import * as validate from '../controllers/auth.validate'
+import * as AuthController from '../controllers/auth'
+import express from 'express'
 const router = express.Router()
 require('../../config/passport')
-import passport from "passport";
+import passport from 'passport'
 const requireAuth = passport.authenticate('jwt', {
   session: false
 })
-import trimRequest from "trim-request";
+import trimRequest from 'trim-request'
 
 /*
  * Auth routes

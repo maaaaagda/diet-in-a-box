@@ -2,11 +2,11 @@
 
 process.env.NODE_ENV = 'test'
 
-const User = require('../app/models/user')
-const faker = require('faker')
-const chai = require('chai')
-const chaiHttp = require('chai-http')
-const server = require('../server')
+import User from '../app/models/user'
+import faker from 'faker'
+import chai from 'chai'
+import chaiHttp from 'chai-http'
+import server from '../server'
 // eslint-disable-next-line no-unused-vars
 const should = chai.should()
 const loginDetails = {

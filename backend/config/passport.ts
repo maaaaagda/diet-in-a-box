@@ -1,6 +1,6 @@
 import passport from 'passport'
-import User from "../app/models/user";
-import auth from "../app/middleware/auth";
+import User from '../app/models/user'
+import auth from '../app/middleware/auth'
 const JwtStrategy = require('passport-jwt').Strategy
 
 /**

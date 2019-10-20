@@ -1,13 +1,13 @@
-import jwt from "jsonwebtoken";
-import User from "../models/user";
-import UserAccess from "../models/userAccess";
-import ForgotPassword from "../models/forgotPassword";
-import * as utils from "../middleware/utils";
-import uuid from "uuid";
+import jwt from 'jsonwebtoken'
+import User from '../models/user'
+import UserAccess from '../models/userAccess'
+import ForgotPassword from '../models/forgotPassword'
+import * as utils from '../middleware/utils'
+import uuid from 'uuid'
 const { addHours } = require('date-fns')
 const { matchedData } = require('express-validator')
-import auth from "../middleware/auth";
-import emailer from "../middleware/emailer";
+import auth from '../middleware/auth'
+import emailer from '../middleware/emailer'
 const HOURS_TO_BLOCK = 2
 const LOGIN_ATTEMPTS = 5
 
@@ -22,7 +22,8 @@ const LOGIN_ATTEMPTS = 5
 const generateToken = user => {
   // Gets expiration time
   const expiration =
-    Math.floor(Date.now() / 1000) + 60 * parseInt(process.env.JWT_EXPIRATION_IN_MINUTES)
+    Math.floor(Date.now() / 1000) +
+    60 * parseInt(process.env.JWT_EXPIRATION_IN_MINUTES)
 
   // returns signed and encrypted token
   return auth.encrypt(
@@ -42,14 +43,21 @@ const generateToken = user => {
  * Creates an object with user info
  * @param {Object} req - request object
  */
-const setUserInfo = (req: {_id: string, name: string, email: string, role: string, verified: boolean, verification: string}) => {
+const setUserInfo = (req: {
+  _id: string;
+  name: string;
+  email: string;
+  role: string
+  verified: boolean
+  verification: string;
+}) => {
   let user = {
     _id: req._id,
     name: req.name,
     email: req.email,
     role: req.role,
     verified: req.verified,
-    verification:req.verification
+    verification: req.verification
   }
   // Adds verification for testing purposes
   if (process.env.NODE_ENV !== 'production') {
@@ -66,7 +74,10 @@ const setUserInfo = (req: {_id: string, name: string, email: string, role: strin
  * @param {Object} req - request object
  * @param {Object} user - user object
  */
-const saveUserAccessAndReturnToken = async (req, user): Promise<{user: {}, token:string}> => {
+const saveUserAccessAndReturnToken = async (
+  req,
+  user
+): Promise<{ user: {}; token: string }> => {
   return new Promise((resolve, reject) => {
     const userAccess = new UserAccess({
       email: user.email,
@@ -391,7 +402,7 @@ const forgotPasswordResponse = item => {
   let data = {
     msg: 'RESET_EMAIL_SENT',
     email: item.email,
-    verification: ""
+    verification: ''
   }
   if (process.env.NODE_ENV !== 'production') {
     data = {
@@ -447,7 +458,7 @@ const getUserIdFromToken = async token => {
 const login = async (req, res) => {
   try {
     const data = matchedData(req)
-    const user: {loginAttempts?: number} = await findUser(data.email)
+    const user: { loginAttempts?: number } = await findUser(data.email)
     await userIsBlocked(user)
     await checkLoginAttemptsAndBlockExpires(user)
     const isPasswordMatch = await auth.checkPassword(data.password, user)
@@ -552,7 +563,10 @@ const getRefreshToken = async (req, res) => {
     let userId = await getUserIdFromToken(tokenEncrypted)
     userId = await utils.isIDGood(userId)
     const user = await findUserById(userId)
-    const tokenData: {user: {}, token: string} = await saveUserAccessAndReturnToken(req, user)
+    const tokenData: {
+      user: {};
+      token: string;
+    } = await saveUserAccessAndReturnToken(req, user)
     // Removes user info from response
     delete tokenData.user
     res.status(200).json(tokenData)
@@ -576,4 +590,12 @@ const roleAuthorization = roles => async (req, res, next) => {
     utils.handleError(res, error)
   }
 }
-export {roleAuthorization, getRefreshToken, resetPassword, forgotPassword, verify, register, login}
+export {
+  roleAuthorization,
+  getRefreshToken,
+  resetPassword,
+  forgotPassword,
+  verify,
+  register,
+  login
+}

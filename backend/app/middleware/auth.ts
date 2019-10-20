@@ -1,8 +1,8 @@
-import crypto from "crypto";
+import crypto from 'crypto'
 const algorithm = 'aes-256-ecb'
 const secret = process.env.JWT_SECRET
 
-const auth =  {
+const auth = {
   /**
    * Checks is password matches
    * @param {string} password - password

@@ -1,5 +1,5 @@
-import { getValidationResult }from '../middleware/utils'
-import { check } from  'express-validator'
+import { getValidationResult } from '../middleware/utils'
+import { check } from 'express-validator'
 
 /**
  * Validates register request

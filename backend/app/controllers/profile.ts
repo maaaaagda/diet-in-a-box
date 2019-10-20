@@ -1,7 +1,7 @@
-import model from "../models/user";
-import * as utils from "../middleware/utils";
+import model from '../models/user'
+import * as utils from '../middleware/utils'
 const { matchedData } = require('express-validator')
-import auth from "../middleware/auth";
+import auth from '../middleware/auth'
 
 /*********************
  * Private functions *

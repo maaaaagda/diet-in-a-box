@@ -1,4 +1,4 @@
-import requestIp from "request-ip";
+import requestIp from 'request-ip'
 import { validationResult } from 'express-validator'
 /**
  * Removes extension from file

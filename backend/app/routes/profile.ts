@@ -1,4 +1,5 @@
-const controller = require('../controllers/profile')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+import controller from '../controllers/profile'
 const validate = require('../controllers/profile.validate')
 const AuthController = require('../controllers/auth')
 const express = require('express')
