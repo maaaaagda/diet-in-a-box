@@ -1,8 +1,8 @@
-const crypto = require('crypto')
+import crypto from "crypto";
 const algorithm = 'aes-256-ecb'
 const secret = process.env.JWT_SECRET
 
-module.exports = {
+const auth =  {
   /**
    * Checks is password matches
    * @param {string} password - password
@@ -49,3 +49,5 @@ module.exports = {
     }
   }
 }
+
+export default auth

@@ -123,7 +123,6 @@ Lint your code with ESLint by typing:
 npm run lint
 ```
 
-
 ### Postman API example collection
 
 You can import the example collection to Postman. To import, click the import button located and select `postman-example.json` located within the root directory.

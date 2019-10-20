@@ -2,7 +2,7 @@ const {
   buildSuccObject,
   buildErrObject,
   itemNotFound
-} = require('../middleware/utils')
+} = require('./utils')
 
 /**
  * Builds sorting
@@ -45,7 +45,7 @@ const listInitOptions = async req => {
   })
 }
 
-module.exports = {
+const db =  {
   /**
    * Checks the query string for filtering records
    * query.filter should be the text to search (string)
@@ -166,3 +166,5 @@ module.exports = {
     })
   }
 }
+
+export default db

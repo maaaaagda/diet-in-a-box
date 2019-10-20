@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const validator = require('validator')
+import mongoose from "mongoose";
+import validator from "validator";
 
 const ForgotPasswordSchema = new mongoose.Schema(
   {
@@ -43,4 +43,4 @@ const ForgotPasswordSchema = new mongoose.Schema(
     timestamps: true
   }
 )
-module.exports = mongoose.model('ForgotPassword', ForgotPasswordSchema)
+export default mongoose.model('ForgotPassword', ForgotPasswordSchema)

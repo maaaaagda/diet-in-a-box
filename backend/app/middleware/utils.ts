@@ -1,11 +1,10 @@
-const requestIp = require('request-ip')
-const { validationResult } = require('express-validator')
-
+import requestIp from "request-ip";
+import { validationResult } from 'express-validator'
 /**
  * Removes extension from file
  * @param {string} file - filename
  */
-exports.removeExtensionFromFile = file => {
+export const removeExtensionFromFile = file => {
   return file
     .split('.')
     .slice(0, -1)
@@ -17,19 +16,19 @@ exports.removeExtensionFromFile = file => {
  * Gets IP from user
  * @param {*} req - request object
  */
-exports.getIP = req => requestIp.getClientIp(req)
+export const getIP = req => requestIp.getClientIp(req)
 
 /**
  * Gets browser info from user
  * @param {*} req - request object
  */
-exports.getBrowserInfo = req => req.headers['user-agent']
+export const getBrowserInfo = req => req.headers['user-agent']
 
 /**
  * Gets country from user using CloudFlare header 'cf-ipcountry'
  * @param {*} req - request object
  */
-exports.getCountry = req =>
+export const getCountry = req =>
   req.headers['cf-ipcountry'] ? req.headers['cf-ipcountry'] : 'XX'
 
 /**
@@ -37,7 +36,7 @@ exports.getCountry = req =>
  * @param {Object} res - response object
  * @param {Object} err - error object
  */
-exports.handleError = (res, err) => {
+export const handleError = (res, err) => {
   // Prints error in console
   if (process.env.NODE_ENV === 'development') {
     console.log(err)
@@ -55,7 +54,7 @@ exports.handleError = (res, err) => {
  * @param {number} code - error code
  * @param {string} message - error text
  */
-exports.buildErrObject = (code, message) => {
+export const buildErrObject = (code, message) => {
   return {
     code,
     message
@@ -68,7 +67,7 @@ exports.buildErrObject = (code, message) => {
  * @param {Object} res - response object
  * @param {Object} next - next object
  */
-exports.validationResult = (req, res, next) => {
+export const getValidationResult = (req, res, next) => {
   try {
     validationResult(req).throw()
     if (req.body.email) {
@@ -84,7 +83,7 @@ exports.validationResult = (req, res, next) => {
  * Builds success object
  * @param {string} message - success text
  */
-exports.buildSuccObject = message => {
+export const buildSuccObject = message => {
   return {
     msg: message
   }
@@ -94,7 +93,7 @@ exports.buildSuccObject = message => {
  * Checks if given ID is good for MongoDB
  * @param {string} id - id to check
  */
-exports.isIDGood = async id => {
+export const isIDGood = async id => {
   return new Promise((resolve, reject) => {
     const goodID = String(id).match(/^[0-9a-fA-F]{24}$/)
     return goodID
@@ -110,7 +109,7 @@ exports.isIDGood = async id => {
  * @param {Object} reject - reject object
  * @param {string} message - message
  */
-exports.itemNotFound = (err, item, reject, message) => {
+export const itemNotFound = (err, item, reject, message) => {
   if (err) {
     reject(this.buildErrObject(422, err.message))
   }
@@ -126,7 +125,7 @@ exports.itemNotFound = (err, item, reject, message) => {
  * @param {Object} reject - reject object
  * @param {string} message - message
  */
-exports.itemAlreadyExists = (err, item, reject, message) => {
+export const itemAlreadyExists = (err, item, reject, message) => {
   if (err) {
     reject(this.buildErrObject(422, err.message))
   }

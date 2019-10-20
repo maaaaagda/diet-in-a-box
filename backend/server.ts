@@ -8,7 +8,7 @@ const cors = require('cors')
 const passport = require('passport')
 const app = express()
 const i18n = require('i18n')
-const initMongo = require('./config/mongo')
+import initMongo from "./config/mongo";
 const path = require('path')
 
 // Setup express server port from ENV, default: 3000
@@ -68,7 +68,7 @@ app.set('view engine', 'html')
 app.use(require('./app/routes'))
 app.listen(app.get('port'))
 
-// Init MongoDB
+// Inist MongoDB
 initMongo()
 
 module.exports = app // for testing

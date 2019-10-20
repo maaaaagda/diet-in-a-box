@@ -1,8 +1,8 @@
-const nodemailer = require('nodemailer')
-const mg = require('nodemailer-mailgun-transport')
-const i18n = require('i18n')
-const User = require('../models/user')
-const { itemAlreadyExists } = require('../middleware/utils')
+import nodemailer from "nodemailer";
+import mg from "nodemailer-mailgun-transport";
+import i18n from "i18n";
+import User from "../models/user";
+const { itemAlreadyExists } = require('./utils')
 
 /**
  * Sends email
@@ -60,7 +60,7 @@ const prepareToSendEmail = (user, subject, htmlMessage) => {
   }
 }
 
-module.exports = {
+const emailer = {
   /**
    * Checks User model if user with an specific email exists
    * @param {string} email - user email
@@ -135,3 +135,5 @@ module.exports = {
     prepareToSendEmail(user, subject, htmlMessage)
   }
 }
+
+export default emailer

@@ -1,4 +1,4 @@
-const controller = require('../controllers/users')
+import * as controller from "../controllers/users";
 const validate = require('../controllers/users.validate')
 const AuthController = require('../controllers/auth')
 const express = require('express')

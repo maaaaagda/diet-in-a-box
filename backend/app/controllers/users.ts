@@ -1,9 +1,9 @@
-const model = require('../models/user')
-const uuid = require('uuid')
+import model from "../models/user";
+import uuid from "uuid";
 const { matchedData } = require('express-validator')
-const utils = require('../middleware/utils')
-const db = require('../middleware/db')
-const emailer = require('../middleware/emailer')
+import * as utils from "../middleware/utils";
+import db from "../middleware/db";
+import emailer from "../middleware/emailer";
 
 /*********************
  * Private functions *
@@ -13,7 +13,7 @@ const emailer = require('../middleware/emailer')
  * Creates a new item in database
  * @param {Object} req - request object
  */
-const createItem = async req => {
+const getNewItem = async req => {
   return new Promise((resolve, reject) => {
     const user = new model({
       name: req.name,
@@ -53,7 +53,7 @@ const createItem = async req => {
  * @param {Object} req - request object
  * @param {Object} res - response object
  */
-exports.getItems = async (req, res) => {
+export const getItems = async (req, res) => {
   try {
     const query = await db.checkQueryString(req.query)
     res.status(200).json(await db.getItems(req, model, query))
@@ -67,7 +67,7 @@ exports.getItems = async (req, res) => {
  * @param {Object} req - request object
  * @param {Object} res - response object
  */
-exports.getItem = async (req, res) => {
+export const getItem = async (req, res) => {
   try {
     req = matchedData(req)
     const id = await utils.isIDGood(req.id)
@@ -82,7 +82,7 @@ exports.getItem = async (req, res) => {
  * @param {Object} req - request object
  * @param {Object} res - response object
  */
-exports.updateItem = async (req, res) => {
+export const updateItem = async (req, res) => {
   try {
     req = matchedData(req)
     const id = await utils.isIDGood(req.id)
@@ -103,14 +103,14 @@ exports.updateItem = async (req, res) => {
  * @param {Object} req - request object
  * @param {Object} res - response object
  */
-exports.createItem = async (req, res) => {
+export const createItem = async (req, res) => {
   try {
     // Gets locale from header 'Accept-Language'
     const locale = req.getLocale()
     req = matchedData(req)
     const doesEmailExists = await emailer.emailExists(req.email)
     if (!doesEmailExists) {
-      const item = await createItem(req)
+      const item = await getNewItem(req)
       emailer.sendRegistrationEmailMessage(locale, item)
       res.status(201).json(item)
     }
@@ -124,7 +124,7 @@ exports.createItem = async (req, res) => {
  * @param {Object} req - request object
  * @param {Object} res - response object
  */
-exports.deleteItem = async (req, res) => {
+export const deleteItem = async (req, res) => {
   try {
     req = matchedData(req)
     const id = await utils.isIDGood(req.id)

@@ -1,8 +1,8 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 const DB_URL = process.env.MONGO_URI
-const loadModels = require('../app/models')
+import loadModels from '../app/models'
 
-module.exports = () => {
+const initMongo =  () => {
   const connect = () => {
     mongoose.Promise = global.Promise
 
@@ -41,3 +41,5 @@ module.exports = () => {
 
   loadModels()
 }
+
+export default initMongo

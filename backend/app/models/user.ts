@@ -1,7 +1,7 @@
-const mongoose = require('mongoose')
-const bcrypt = require('bcrypt-nodejs')
-const validator = require('validator')
-const mongoosePaginate = require('mongoose-paginate-v2')
+import mongoose from "mongoose";
+import bcrypt from "bcrypt-nodejs";
+import validator from "validator";
+import mongoosePaginate from "mongoose-paginate-v2";
 
 const UserSchema = new mongoose.Schema(
   {
@@ -116,4 +116,4 @@ UserSchema.methods.comparePassword = function(passwordAttempt, cb) {
   )
 }
 UserSchema.plugin(mongoosePaginate)
-module.exports = mongoose.model('User', UserSchema)
+export default mongoose.model('User', UserSchema)

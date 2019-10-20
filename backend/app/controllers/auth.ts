@@ -1,13 +1,13 @@
-const jwt = require('jsonwebtoken')
-const User = require('../models/user')
-const UserAccess = require('../models/userAccess')
-const ForgotPassword = require('../models/forgotPassword')
-const utils = require('../middleware/utils')
-const uuid = require('uuid')
+import jwt from "jsonwebtoken";
+import User from "../models/user";
+import UserAccess from "../models/userAccess";
+import ForgotPassword from "../models/forgotPassword";
+import * as utils from "../middleware/utils";
+import uuid from "uuid";
 const { addHours } = require('date-fns')
 const { matchedData } = require('express-validator')
-const auth = require('../middleware/auth')
-const emailer = require('../middleware/emailer')
+import auth from "../middleware/auth";
+import emailer from "../middleware/emailer";
 const HOURS_TO_BLOCK = 2
 const LOGIN_ATTEMPTS = 5
 
@@ -22,7 +22,7 @@ const LOGIN_ATTEMPTS = 5
 const generateToken = user => {
   // Gets expiration time
   const expiration =
-    Math.floor(Date.now() / 1000) + 60 * process.env.JWT_EXPIRATION_IN_MINUTES
+    Math.floor(Date.now() / 1000) + 60 * parseInt(process.env.JWT_EXPIRATION_IN_MINUTES)
 
   // returns signed and encrypted token
   return auth.encrypt(
@@ -42,13 +42,14 @@ const generateToken = user => {
  * Creates an object with user info
  * @param {Object} req - request object
  */
-const setUserInfo = req => {
+const setUserInfo = (req: {_id: string, name: string, email: string, role: string, verified: boolean, verification: string}) => {
   let user = {
     _id: req._id,
     name: req.name,
     email: req.email,
     role: req.role,
-    verified: req.verified
+    verified: req.verified,
+    verification:req.verification
   }
   // Adds verification for testing purposes
   if (process.env.NODE_ENV !== 'production') {
@@ -65,7 +66,7 @@ const setUserInfo = req => {
  * @param {Object} req - request object
  * @param {Object} user - user object
  */
-const saveUserAccessAndReturnToken = async (req, user) => {
+const saveUserAccessAndReturnToken = async (req, user): Promise<{user: {}, token:string}> => {
   return new Promise((resolve, reject) => {
     const userAccess = new UserAccess({
       email: user.email,
@@ -219,7 +220,7 @@ const passwordsDoNotMatch = async user => {
  * Registers a new user in database
  * @param {Object} req - request object
  */
-const registerUser = async req => {
+const registerUser = async (req): Promise<any> => {
   return new Promise((resolve, reject) => {
     const user = new User({
       name: req.name,
@@ -345,7 +346,7 @@ const findUserToResetPassword = async email => {
  * Checks if a forgot password verification exists
  * @param {string} id - verification id
  */
-const findForgotPassword = async id => {
+const findForgotPassword = async (id): Promise<{ email: string }> => {
   return new Promise((resolve, reject) => {
     ForgotPassword.findOne(
       {
@@ -389,7 +390,8 @@ const saveForgotPassword = async req => {
 const forgotPasswordResponse = item => {
   let data = {
     msg: 'RESET_EMAIL_SENT',
-    email: item.email
+    email: item.email,
+    verification: ""
   }
   if (process.env.NODE_ENV !== 'production') {
     data = {
@@ -442,10 +444,10 @@ const getUserIdFromToken = async token => {
  * @param {Object} req - request object
  * @param {Object} res - response object
  */
-exports.login = async (req, res) => {
+const login = async (req, res) => {
   try {
     const data = matchedData(req)
-    const user = await findUser(data.email)
+    const user: {loginAttempts?: number} = await findUser(data.email)
     await userIsBlocked(user)
     await checkLoginAttemptsAndBlockExpires(user)
     const isPasswordMatch = await auth.checkPassword(data.password, user)
@@ -467,7 +469,7 @@ exports.login = async (req, res) => {
  * @param {Object} req - request object
  * @param {Object} res - response object
  */
-exports.register = async (req, res) => {
+const register = async (req, res) => {
   try {
     // Gets locale from header 'Accept-Language'
     const locale = req.getLocale()
@@ -490,7 +492,7 @@ exports.register = async (req, res) => {
  * @param {Object} req - request object
  * @param {Object} res - response object
  */
-exports.verify = async (req, res) => {
+const verify = async (req, res) => {
   try {
     req = matchedData(req)
     const user = await verificationExists(req.id)
@@ -505,7 +507,7 @@ exports.verify = async (req, res) => {
  * @param {Object} req - request object
  * @param {Object} res - response object
  */
-exports.forgotPassword = async (req, res) => {
+const forgotPassword = async (req, res) => {
   try {
     // Gets locale from header 'Accept-Language'
     const locale = req.getLocale()
@@ -524,7 +526,7 @@ exports.forgotPassword = async (req, res) => {
  * @param {Object} req - request object
  * @param {Object} res - response object
  */
-exports.resetPassword = async (req, res) => {
+const resetPassword = async (req, res) => {
   try {
     const data = matchedData(req)
     const forgotPassword = await findForgotPassword(data.id)
@@ -542,7 +544,7 @@ exports.resetPassword = async (req, res) => {
  * @param {Object} req - request object
  * @param {Object} res - response object
  */
-exports.getRefreshToken = async (req, res) => {
+const getRefreshToken = async (req, res) => {
   try {
     const tokenEncrypted = req.headers.authorization
       .replace('Bearer ', '')
@@ -550,10 +552,10 @@ exports.getRefreshToken = async (req, res) => {
     let userId = await getUserIdFromToken(tokenEncrypted)
     userId = await utils.isIDGood(userId)
     const user = await findUserById(userId)
-    const token = await saveUserAccessAndReturnToken(req, user)
+    const tokenData: {user: {}, token: string} = await saveUserAccessAndReturnToken(req, user)
     // Removes user info from response
-    delete token.user
-    res.status(200).json(token)
+    delete tokenData.user
+    res.status(200).json(tokenData)
   } catch (error) {
     utils.handleError(res, error)
   }
@@ -563,7 +565,7 @@ exports.getRefreshToken = async (req, res) => {
  * Roles authorization function called by route
  * @param {Array} roles - roles specified on the route
  */
-exports.roleAuthorization = roles => async (req, res, next) => {
+const roleAuthorization = roles => async (req, res, next) => {
   try {
     const data = {
       id: req.user._id,
@@ -574,3 +576,4 @@ exports.roleAuthorization = roles => async (req, res, next) => {
     utils.handleError(res, error)
   }
 }
+export {roleAuthorization, getRefreshToken, resetPassword, forgotPassword, verify, register, login}

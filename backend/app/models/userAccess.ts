@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const validator = require('validator')
+import mongoose from "mongoose";
+import validator from "validator";
 
 const UserAccessSchema = new mongoose.Schema(
   {
@@ -30,4 +30,4 @@ const UserAccessSchema = new mongoose.Schema(
     timestamps: true
   }
 )
-module.exports = mongoose.model('UserAccess', UserAccessSchema)
+export default mongoose.model('UserAccess', UserAccessSchema)

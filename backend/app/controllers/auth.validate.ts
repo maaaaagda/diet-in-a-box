@@ -1,10 +1,10 @@
-const { validationResult } = require('../middleware/utils')
-const { check } = require('express-validator')
+import { getValidationResult }from '../middleware/utils'
+import { check } from  'express-validator'
 
 /**
  * Validates register request
  */
-exports.register = [
+export const register = [
   check('name')
     .exists()
     .withMessage('MISSING')
@@ -30,14 +30,14 @@ exports.register = [
     })
     .withMessage('PASSWORD_TOO_SHORT_MIN_5'),
   (req, res, next) => {
-    validationResult(req, res, next)
+    getValidationResult(req, res, next)
   }
 ]
 
 /**
  * Validates login request
  */
-exports.login = [
+export const login = [
   check('email')
     .exists()
     .withMessage('MISSING')
@@ -57,14 +57,14 @@ exports.login = [
     })
     .withMessage('PASSWORD_TOO_SHORT_MIN_5'),
   (req, res, next) => {
-    validationResult(req, res, next)
+    getValidationResult(req, res, next)
   }
 ]
 
 /**
  * Validates verify request
  */
-exports.verify = [
+export const verify = [
   check('id')
     .exists()
     .withMessage('MISSING')
@@ -72,14 +72,14 @@ exports.verify = [
     .isEmpty()
     .withMessage('IS_EMPTY'),
   (req, res, next) => {
-    validationResult(req, res, next)
+    getValidationResult(req, res, next)
   }
 ]
 
 /**
  * Validates forgot password request
  */
-exports.forgotPassword = [
+export const forgotPassword = [
   check('email')
     .exists()
     .withMessage('MISSING')
@@ -89,14 +89,14 @@ exports.forgotPassword = [
     .isEmail()
     .withMessage('EMAIL_IS_NOT_VALID'),
   (req, res, next) => {
-    validationResult(req, res, next)
+    getValidationResult(req, res, next)
   }
 ]
 
 /**
  * Validates reset password request
  */
-exports.resetPassword = [
+export const resetPassword = [
   check('id')
     .exists()
     .withMessage('MISSING')
@@ -114,6 +114,6 @@ exports.resetPassword = [
     })
     .withMessage('PASSWORD_TOO_SHORT_MIN_5'),
   (req, res, next) => {
-    validationResult(req, res, next)
+    getValidationResult(req, res, next)
   }
 ]

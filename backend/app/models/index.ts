@@ -1,8 +1,8 @@
-const fs = require('fs')
-const modelsPath = `${__dirname}/`
-const { removeExtensionFromFile } = require('../middleware/utils')
+import fs from "fs";
+export const modelsPath = `${__dirname}/`
+import { removeExtensionFromFile } from '../middleware/utils'
 
-module.exports = () => {
+const loadModels =  () => {
   /*
    * Load models dynamically
    */
@@ -15,3 +15,4 @@ module.exports = () => {
     return modelFile !== 'index' ? require(`./${modelFile}`) : ''
   })
 }
+export default loadModels
