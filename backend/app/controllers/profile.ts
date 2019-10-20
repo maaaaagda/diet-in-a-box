@@ -99,7 +99,7 @@ const changePasswordInDB = async (id, req) => {
  * @param {Object} req - request object
  * @param {Object} res - response object
  */
-exports.getProfile = async (req, res) => {
+export const getProfile = async (req, res) => {
   try {
     const id = await utils.isIDGood(req.user._id)
     res.status(200).json(await getProfileFromDB(id))
@@ -113,7 +113,7 @@ exports.getProfile = async (req, res) => {
  * @param {Object} req - request object
  * @param {Object} res - response object
  */
-exports.updateProfile = async (req, res) => {
+export const updateProfile = async (req, res) => {
   try {
     const id = await utils.isIDGood(req.user._id)
     req = matchedData(req)
@@ -128,7 +128,7 @@ exports.updateProfile = async (req, res) => {
  * @param {Object} req - request object
  * @param {Object} res - response object
  */
-exports.changePassword = async (req, res) => {
+export const changePassword = async (req, res) => {
   try {
     const id = await utils.isIDGood(req.user._id)
     const user = await findUser(id)

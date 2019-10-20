@@ -1,15 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-import controller from '../controllers/profile'
-const validate = require('../controllers/profile.validate')
-const AuthController = require('../controllers/auth')
-const express = require('express')
+import * as controller from '../controllers/profile'
+import * as validate from '../controllers/profile.validate'
+import * as AuthController from '../controllers/auth'
+import express from 'express'
 const router = express.Router()
 require('../../config/passport')
-const passport = require('passport')
+import passport from 'passport'
 const requireAuth = passport.authenticate('jwt', {
   session: false
 })
-const trimRequest = require('trim-request')
+import trimRequest from 'trim-request'
 
 /*
  * Profile routes
