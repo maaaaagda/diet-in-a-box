@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CBA7E8C236DF9FA005820A3 /* loginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBA7E8B236DF9FA005820A3 /* loginModel.swift */; };
 		2CDE8725236709F50073BF06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE8724236709F50073BF06 /* AppDelegate.swift */; };
 		2CDE8727236709F50073BF06 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE8726236709F50073BF06 /* SceneDelegate.swift */; };
 		2CDE872A236709F60073BF06 /* diet_in_a_box.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE8728236709F50073BF06 /* diet_in_a_box.xcdatamodeld */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2CBA7E8B236DF9FA005820A3 /* loginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginModel.swift; sourceTree = "<group>"; };
 		2CDE8721236709F50073BF06 /* diet-in-a-box.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "diet-in-a-box.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CDE8724236709F50073BF06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CDE8726236709F50073BF06 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +41,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2CBA7E87236D86B0005820A3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2CDE8726236709F50073BF06 /* SceneDelegate.swift */,
+				2CDE872B236709F60073BF06 /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2CBA7E88236D86E5005820A3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2CBA7E8B236DF9FA005820A3 /* loginModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2CBA7E8A236D8719005820A3 /* Controller  */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Controller ";
+			sourceTree = "<group>";
+		};
 		2CDE8718236709F50073BF06 = {
 			isa = PBXGroup;
 			children = (
@@ -58,9 +84,10 @@
 		2CDE8723236709F50073BF06 /* diet-in-a-box */ = {
 			isa = PBXGroup;
 			children = (
+				2CBA7E8A236D8719005820A3 /* Controller  */,
+				2CBA7E88236D86E5005820A3 /* Model */,
+				2CBA7E87236D86B0005820A3 /* View */,
 				2CDE8724236709F50073BF06 /* AppDelegate.swift */,
-				2CDE8726236709F50073BF06 /* SceneDelegate.swift */,
-				2CDE872B236709F60073BF06 /* ContentView.swift */,
 				2CDE872D236709FA0073BF06 /* Assets.xcassets */,
 				2CDE8732236709FA0073BF06 /* LaunchScreen.storyboard */,
 				2CDE8735236709FA0073BF06 /* Info.plist */,
@@ -149,6 +176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CBA7E8C236DF9FA005820A3 /* loginModel.swift in Sources */,
 				2CDE8725236709F50073BF06 /* AppDelegate.swift in Sources */,
 				2CDE8727236709F50073BF06 /* SceneDelegate.swift in Sources */,
 				2CDE872C236709F60073BF06 /* ContentView.swift in Sources */,
