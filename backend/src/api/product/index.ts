@@ -45,6 +45,26 @@ export class ProductController implements interfaces.Controller {
     next: NextFunction
   ): Promise<Response> {
     try {
+      if (!req.query.name) {
+        throw new BadRequestError("Please provide 'name' parameter");
+      }
+      const products: IProduct[] = await this._productService.getProducts(
+        req.query.name
+      );
+      return res.json(SuccessResponse.Ok(products));
+    } catch (error) {
+      return new Promise(() => {
+        next(error);
+      });
+    }
+  }
+  @httpGet("/")
+  public async getAllProducts(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<Response> {
+    try {
       const products: IProduct[] = await this._productService.getProducts();
       return res.json(SuccessResponse.Ok(products));
     } catch (error) {
@@ -64,7 +84,9 @@ export class ProductController implements interfaces.Controller {
       if (!req.query.name) {
         throw new BadRequestError("Please provide 'name' parameter");
       }
-      const products: IExternalProviderProduct[] = await this._productService.searchForProduct(req.query.name);
+      const products: IExternalProviderProduct[] = await this._productService.searchForProduct(
+        req.query.name
+      );
       return res.json(SuccessResponse.Ok(products));
     } catch (error) {
       return new Promise(() => {
