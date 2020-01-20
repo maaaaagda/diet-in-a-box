@@ -1,13 +1,14 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import { DietList } from 'src/components/DietList'
-import { useDietListQuery } from "src/rest"
+import { useDietListQuery } from 'src/rest'
 import { Diet } from 'src/models'
 import { DietCard, DietCardProps } from 'src/components/DietCard'
 
-const makePlaceholderData = (n: number) => (
-  Array.from(Array(n).keys()).map(i => ({ _id: `${i}`, name: "", dailyCost: 0 } as Diet))
-)
+const makePlaceholderData = (n: number) =>
+  Array.from(Array(n).keys()).map(
+    i => ({ _id: `${i}`, name: '', dailyCost: 0 } as Diet)
+  )
 
 type Props = {
   DietCard?: (props: DietCardProps) => JSX.Element
@@ -15,12 +16,16 @@ type Props = {
 
 const DietListView = (props: Props) => {
   const { data, loading } = useDietListQuery()
-  const dat = (loading || !data) ? makePlaceholderData(10) : data
+  const dat = loading || !data ? makePlaceholderData(10) : data
 
   return (
     <Container>
       <h1>Dostępne diety</h1>
-      <DietList diets={dat} isLoading={loading} DietCard={props.DietCard || DietCard} />
+      <DietList
+        diets={dat}
+        isLoading={loading}
+        DietCard={props.DietCard || DietCard}
+      />
     </Container>
   )
 }

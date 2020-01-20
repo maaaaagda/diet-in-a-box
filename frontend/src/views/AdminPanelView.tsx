@@ -5,7 +5,6 @@ import { Route, useRouteMatch, Redirect } from 'react-router-dom'
 import { DietListView } from './DietListView'
 import { DietCard } from 'src/components/DietCard'
 import { DietView } from './DietView'
-import { DietSchedule } from 'src/components/DietSchedule'
 import { RouteBuilder } from './routes'
 import { MealListView } from './MealListView'
 import { MealView } from './MealView'
@@ -35,11 +34,7 @@ const AdminPanelView = () => {
           <Route
             path={`${url}/diets/:dietId`}
             exact={true}
-            component={() => (
-              <DietView
-                DietSchedule={props => <DietSchedule {...props} editable />}
-              />
-            )}
+            component={() => <DietView editable />}
           />
           <Route
             path={`${url}/meals`}

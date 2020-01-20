@@ -26,10 +26,6 @@ const MainNavbarComponent = ({ loggedInUser }: Props) => (
         <Link to={RouteBuilder.toDietList()} className={styles.headerLink}>
           DIETY
         </Link>
-        <span className="bp3-navbar-divider"></span>
-        <Link className={styles.headerButton} to="/">
-          MENU
-        </Link>
         {loggedInUser && loggedInUser.role !== 'user' && (
           <>
             <span className="bp3-navbar-divider"></span>

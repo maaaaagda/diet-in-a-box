@@ -1,4 +1,5 @@
 import { ID } from './id'
+import { Meal } from './meal'
 
 export const MEAL_TIME_KEYS = [
   'breakfast',
@@ -9,12 +10,12 @@ export const MEAL_TIME_KEYS = [
 ] as const
 export type MEAL_TIME = typeof MEAL_TIME_KEYS[number]
 export type DailyMeals = {
-  [prop in MEAL_TIME]: ID | null
+  [prop in MEAL_TIME]: Meal | null
 }
 
 export type DailyDiet = {
   _id: ID
-  diet: ID
+  dietId: ID
   dailyMeals: DailyMeals
-  date: Date
+  date: string
 }

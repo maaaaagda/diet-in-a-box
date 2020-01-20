@@ -95,7 +95,7 @@ const IngredientList = ({
             className={styles.weight}
             min={1}
             buttonPosition="none"
-          />{' '}
+          />
           gram
           <Button
             icon="delete"
