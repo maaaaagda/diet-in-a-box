@@ -22,7 +22,7 @@ def home():
 def recommend(daily_meal_id):
     observation_idx = daily_meal_ids.index(daily_meal_id)
     distances = distance.cdist([features[observation_idx]], features, "cosine").argsort()[0]
-    return jsonify([daily_meal_ids[int(v)] for v in distances])
+    return jsonify([daily_meal_ids[int(v)][:10] for v in distances])
 
 if not app.debug:
     file_handler = FileHandler("error.log")
